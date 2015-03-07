@@ -16,10 +16,16 @@ public class CPlayer : MonoBehaviour {
 		direction=InputManager.direction;
 		
 		if(direction==0){
-			if(velocity<0)
+			if(velocity<0){
 				velocity+=accel;
-			if(velocity>0)
+				if(velocity>0)
+					velocity=0;
+			}
+			if(velocity>0){
 				velocity-=accel;
+				if(velocity<0)
+					velocity=0;
+			}
 		}
 		velocity=velocity+accel*direction;
 		if(velocity>maxSpeed)velocity=maxSpeed;
