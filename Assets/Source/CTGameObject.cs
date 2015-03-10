@@ -5,6 +5,9 @@ using AssemblyCSharp;
 public class CTGameObject : MonoBehaviour {
 	public GameObject cloud;
 	public GameObject tCloud;
+	public float nextWindTime=10.0f;
+	public float nextWindRange=1.0f;
+	public float nextWindDelay=5.0f;
 	float deltaTime;
 	float cloudTime;
 	float tCloudTime;
@@ -35,8 +38,36 @@ public class CTGameObject : MonoBehaviour {
 			tCloudTime=0;
 			nextTCloudTime=Random.Range (0.5f,5.0f);
 		}
+		if (Time.time > nextWindTime) {
+			WindSwitch();
+		}
 	}
-
+	private void WindSwitch(){
+		if (nextWindDelay < 0) {
+			WindStart ();
+			nextWindTime+=nextWindRange;
+		}
+		else if (ToolManager.wind == 0) {
+			WindStart ();
+			nextWindTime += nextWindRange;
+			nextWindRange+=1.0f;
+		} 
+		else {
+			WindStop();
+			nextWindTime+=nextWindDelay;
+			nextWindDelay-=1.0f;
+		}
+	}
+	private void WindStart(){
+		if (Random.Range (0, 2) == 0)
+			ToolManager.wind = 1;
+		else
+			ToolManager.wind = -1;
+		
+	}
+	private void WindStop(){
+		ToolManager.wind = 0;
+	}
 	private void upTimer(){
 		setDeltaTime();
 		deltaTime=ToolManager.deltaTime;
@@ -49,14 +80,14 @@ public class CTGameObject : MonoBehaviour {
 		float x=Random.Range(-3.5f,3.5f);
 		float y=5;
 		position=new Vector3(x,y,0);
-		Instantiate(cloud,position,Quaternion.Euler(0,180,0));
+		Instantiate(cloud,position,Quaternion.Euler(0,0,0));
 	}
 	public void generateTCloud(){
 		Vector3 position;
 		float x=Random.Range(-3.5f,3.5f);
 		float y=5;
 		position=new Vector3(x,y,-1);
-		Instantiate(tCloud,position,Quaternion.Euler(0,180,0));
+		Instantiate(tCloud,position,Quaternion.Euler(0,0,0));
 	}
 
 	public void InputProcess(){

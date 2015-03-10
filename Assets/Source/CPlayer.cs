@@ -4,6 +4,8 @@ using AssemblyCSharp;
 
 public class CPlayer : MonoBehaviour {
 	public float maxSpeed;
+	float maxSpeedL;
+	float maxSpeedR;
 	public float velocity;
 	public float accel;
 	public int direction;
@@ -28,9 +30,11 @@ public class CPlayer : MonoBehaviour {
 			}
 		}
 		velocity=velocity+accel*direction;
-		if(velocity>maxSpeed)velocity=maxSpeed;
-		if(velocity<maxSpeed*-1)velocity=-1*maxSpeed;
-		gameObject.rigidbody2D.velocity=new Vector2(velocity,0.0f);
+		maxSpeedL = maxSpeed*-1;
+		maxSpeedR = maxSpeed;
+		if(velocity>maxSpeedR)velocity=maxSpeedR;
+		if(velocity<maxSpeedL)velocity=maxSpeedL;
+		gameObject.rigidbody2D.velocity=new Vector2(velocity+ToolManager.wind*maxSpeed*0.5f,0.0f);
 		/*
 		Vector3 position= new Vector3();
 		position=gameObject.transform.position;

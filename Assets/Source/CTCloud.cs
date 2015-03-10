@@ -20,7 +20,7 @@ public class CTCloud : MonoBehaviour {
 	void Update () {
 		deltaTime += Time.deltaTime;
 		if (deltaTime > 0.5f && notActedYet) {
-			Instantiate (thunder, this.transform.position + new Vector3 (0, -5.0f, 0.5f), Quaternion.Euler (0, 180, 0));
+			Instantiate (thunder, this.transform.position + new Vector3 (0, -5.0f, 0.5f), Quaternion.Euler (0, 0, 0));
 			spriteRenderer.sprite = afterSprite;
 			notActedYet=false;
 		}
