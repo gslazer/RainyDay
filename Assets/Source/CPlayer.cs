@@ -9,14 +9,17 @@ public class CPlayer : MonoBehaviour {
 	public float velocity;
 	public float accel;
 	public int direction;
+	Animator animator;
 	// Use this for initialization
 	void Start () {
+		
+		animator = GetComponent<Animator> ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		direction=InputManager.direction;
-		
+		animator.SetInteger ("direction", direction);
 		if(direction==0){
 			if(velocity<0){
 				velocity+=accel;
