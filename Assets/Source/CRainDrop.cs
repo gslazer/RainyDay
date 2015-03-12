@@ -12,33 +12,17 @@ public class CRainDrop : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		alive=true;
-		Destroy (gameObject, 1.5f); 
 		rainy = new Vector3 (0, 0, 15);
 	}
-	void OnCollisionEnter2D(Collision2D other){
-        if(other.transform.tag == "land"){  //충돌한 tag가 Land 일때
-			Debug.Log ("dropped");
-            alive=false;
-			DestroyObject(gameObject);
-        }
-         
-        if(other.transform.tag == "player"){
-           alive=false ; //collision with player
-        }
-	}
-	void OnCollisionStay2D(Collision2D other){
-        if(other.transform.tag == "land"){  //충돌한 tag가 Land 일때
-			Debug.Log ("dropped");
-            alive=false;
-			Destroy(gameObject);
-        }
-         
-        if(other.transform.tag == "player"){
-           alive=false ; //collision with player
-        }
-	}
+
 	// Update is called once per frame
 	void Update () {
+		if(!ToolManager.alive){
+			gameObject.rigidbody2D.velocity = new Vector2 (0,0);
+			alive=false;
+			return;
+		}
+		if(this.transform.position.y<-10.0f)Destroy(gameObject);
 		deltaTime+= ToolManager.deltaTime;
 	
 		rainy=new Vector3(0,0,15*ToolManager.wind);
@@ -56,5 +40,6 @@ public class CRainDrop : MonoBehaviour {
 				gameObject.rigidbody2D.velocity = new Vector2 (0.26f*velocity*ToolManager.wind, -1 * velocity);
 			}
 		}
+		else Destroy(gameObject);
 	}
 }

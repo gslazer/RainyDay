@@ -8,15 +8,17 @@ public class CTGameObject : MonoBehaviour {
 	public float nextWindTime=10.0f;
 	public float nextWindRange=1.0f;
 	public float nextWindDelay=5.0f;
+	public float gameTime;
 	float deltaTime;
 	float cloudTime;
 	float tCloudTime;
 	float nextTCloudTime=5.0f;
+	float gameStartTime;
 	// Use this for initialization
 	void Start () {
-		generateCloud();
-		generateCloud();
-		generateCloud();
+		ToolManager.alive=false;
+		gameStartTime=Time.time;
+		gameTime=0;
 	}
 
 	void setDeltaTime ()
@@ -26,6 +28,25 @@ public class CTGameObject : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(Input.GetKeyDown(KeyCode.Escape))
+			Application.Quit();
+		if(ToolManager.alive==false){
+			if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return)){
+				ToolManager.alive=true;
+				ToolManager.gameTime=0;
+				ToolManager.wind=0;
+				gameStartTime=Time.time;
+				gameTime=0;
+				cloudTime=0;
+				tCloudTime=0;
+				nextWindTime=10.0f;
+				nextWindRange=1.0f;
+				nextWindDelay=5.0f;
+				Debug.Log("game start!");
+			}
+			else return;
+		}
+		
 		InputProcess ();
 		upTimer ();
 
@@ -38,7 +59,7 @@ public class CTGameObject : MonoBehaviour {
 			tCloudTime=0;
 			nextTCloudTime=Random.Range (0.5f,5.0f);
 		}
-		if (Time.time > nextWindTime) {
+		if (gameTime > nextWindTime) {
 			WindSwitch();
 		}
 	}
@@ -71,8 +92,11 @@ public class CTGameObject : MonoBehaviour {
 	private void upTimer(){
 		setDeltaTime();
 		deltaTime=ToolManager.deltaTime;
+		gameTime+=deltaTime;
+		ToolManager.gameTime=gameTime;
 		cloudTime += deltaTime;
 		tCloudTime += deltaTime;
+		
 	}
 
 	public void generateCloud(){
