@@ -18,9 +18,13 @@ public class CCloud : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(!ToolManager.alive){
+			alive=false;
+			return;	
+		}
 		if(alive)
 			if(lifeTime<ToolManager.gameTime-birthTime)
-				Destroy(gameObject);
+				alive=false;
 		if(!alive)
 			if(ToolManager.alive)
 				Destroy(gameObject);

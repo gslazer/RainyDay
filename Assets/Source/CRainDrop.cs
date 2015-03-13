@@ -13,6 +13,7 @@ public class CRainDrop : MonoBehaviour {
 	void Start () {
 		alive=true;
 		rainy = new Vector3 (0, 0, 15);
+		
 	}
 
 	// Update is called once per frame

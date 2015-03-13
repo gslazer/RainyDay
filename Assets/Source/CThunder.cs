@@ -14,6 +14,10 @@ public class CThunder : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		deltaTime+= ToolManager.deltaTime;
+		if(!ToolManager.alive){
+			alive=false;
+			return;
+		}
 		if(alive)
 			if(deltaTime>lifeTime)Destroy(gameObject);
 		if(!alive && ToolManager.alive) Destroy(gameObject);

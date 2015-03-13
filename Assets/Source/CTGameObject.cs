@@ -9,16 +9,27 @@ public class CTGameObject : MonoBehaviour {
 	public float nextWindRange=1.0f;
 	public float nextWindDelay=5.0f;
 	public float gameTime;
+	public GameObject startLogo;
+	public GameObject resultLogo;
+	public GUIText gameTimer;
+	public GUIText resultTimer;
 	float deltaTime;
 	float cloudTime;
-	float tCloudTime;
+	public float tCloudTime;
 	float nextTCloudTime=5.0f;
 	float gameStartTime;
+	bool resultPopup;
+	bool startPopup;
+	int intTime;
 	// Use this for initialization
 	void Start () {
 		ToolManager.alive=false;
 		gameStartTime=Time.time;
 		gameTime=0;
+		startLogo.SetActive(true);
+		startPopup=true;
+		resultLogo.SetActive(false);
+		gameTimer.gameObject.SetActive(false);
 	}
 
 	void setDeltaTime ()
@@ -31,21 +42,44 @@ public class CTGameObject : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.Escape))
 			Application.Quit();
 		if(ToolManager.alive==false){
-			if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return)){
-				ToolManager.alive=true;
-				ToolManager.gameTime=0;
-				ToolManager.wind=0;
-				gameStartTime=Time.time;
-				gameTime=0;
-				cloudTime=0;
-				tCloudTime=0;
-				nextWindTime=10.0f;
-				nextWindRange=1.0f;
-				nextWindDelay=5.0f;
-				Debug.Log("game start!");
+			if(startPopup){
+				if( ( Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return))){
+					startLogo.SetActive(false);
+					startPopup=false;
+					ToolManager.alive=true;
+					ToolManager.gameTime=0;
+					ToolManager.wind=0;
+					gameStartTime=Time.time;
+					gameTime=0;
+					cloudTime=0;
+					tCloudTime=0;
+					nextTCloudTime=5.0f;
+					nextWindTime=10.0f;
+					nextWindRange=1.0f;
+					nextWindDelay=5.0f;
+					gameTimer.gameObject.SetActive(true);
+					Debug.Log("game start!");
+					return;
+				}
+				else return;
 			}
-			else return;
+			resultLogo.SetActive(true);
+			resultPopup=true;
+			resultTimer.text=intTime/100+"."+intTime%100;
+			if(resultPopup){
+				if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return)){
+					resultLogo.SetActive(false);
+					resultPopup=false;
+					startLogo.SetActive(true);
+					gameTimer.gameObject.SetActive(false);
+					startPopup=true;
+				}
+				else return;
+			}
+			
 		}
+		
+		if(startPopup || resultPopup) return;
 		
 		InputProcess ();
 		upTimer ();
@@ -96,6 +130,8 @@ public class CTGameObject : MonoBehaviour {
 		ToolManager.gameTime=gameTime;
 		cloudTime += deltaTime;
 		tCloudTime += deltaTime;
+		intTime=(int) (gameTime*100);
+		gameTimer.text =intTime/100+"."+intTime%100;
 		
 	}
 
@@ -129,8 +165,20 @@ public class CTGameObject : MonoBehaviour {
 		if(Input.GetKeyUp(KeyCode.RightArrow) && InputManager.direction==1){
 			InputManager.setDirection(0);
 		}
+		/*
 		if(Input.GetMouseButtonDown(0)){
 			if(Input.mousePosition.x < Screen.width/2){
+				InputManager.setDirection(-1);
+				Debug.Log ("Move Left"+InputManager.direction);
+			}
+			else{
+				InputManager.setDirection(1);
+				Debug.Log ("Move Right"+InputManager.direction);
+			}
+		}
+		*/
+		foreach(Touch t in Input.touches){
+			if(t.position.x < Screen.width/2){
 				InputManager.setDirection(-1);
 				Debug.Log ("Move Left"+InputManager.direction);
 			}

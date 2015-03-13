@@ -25,6 +25,7 @@ public class CPlayer : MonoBehaviour {
 		if(c.tag=="thunder"){
 			Debug.Log("Stunned!!");
 			ToolManager.alive=false;
+			alive=false;
 		}
 	}
 	// Update is called once per frame
