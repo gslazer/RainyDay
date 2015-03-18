@@ -19,7 +19,7 @@ public class CRainDrop : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(!ToolManager.alive){
-			gameObject.rigidbody2D.velocity = new Vector2 (0,0);
+			gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2 (0,0);
 			alive=false;
 			return;
 		}
@@ -36,9 +36,9 @@ public class CRainDrop : MonoBehaviour {
 		}
 
 		if (alive) {
-			gameObject.rigidbody2D.velocity = new Vector2 (0, -1 * velocity);
+			gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2 (0, -1 * velocity);
 			if(ToolManager.wind!=0){
-				gameObject.rigidbody2D.velocity = new Vector2 (0.26f*velocity*ToolManager.wind, -1 * velocity);
+				gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2 (0.26f*velocity*ToolManager.wind, -1 * velocity);
 			}
 		}
 		else Destroy(gameObject);

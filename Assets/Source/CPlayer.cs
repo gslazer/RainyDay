@@ -31,7 +31,7 @@ public class CPlayer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(ToolManager.alive==false){
-			gameObject.rigidbody2D.velocity=new Vector2(0,0);
+			gameObject.GetComponent<Rigidbody2D>().velocity=new Vector2(0,0);
 			return;
 		}
 		if(!alive && ToolManager.alive){
@@ -59,7 +59,7 @@ public class CPlayer : MonoBehaviour {
 		maxSpeedR = maxSpeed;
 		if(velocity>maxSpeedR)velocity=maxSpeedR;
 		if(velocity<maxSpeedL)velocity=maxSpeedL;
-		gameObject.rigidbody2D.velocity=new Vector2(velocity+ToolManager.wind*maxSpeed*0.5f,0.0f);
+		gameObject.GetComponent<Rigidbody2D>().velocity=new Vector2(velocity+ToolManager.wind*maxSpeed*0.5f,0.0f);
 		/*
 		Vector3 position= new Vector3();
 		position=gameObject.transform.position;
