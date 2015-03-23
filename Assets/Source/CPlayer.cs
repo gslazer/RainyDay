@@ -35,7 +35,7 @@ public class CPlayer : MonoBehaviour {
 			return;
 		}
 		if(!alive && ToolManager.alive){
-			gameObject.transform.position=new Vector3(-0.045f,-4.38f,0.0f);
+			gameObject.transform.position=new Vector3(-0.045f,-4.4f,-1.0f);
 			InputManager.direction=0;
 			alive=true;
 			velocity=0;

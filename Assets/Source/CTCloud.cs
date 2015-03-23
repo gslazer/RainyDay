@@ -4,6 +4,7 @@ using AssemblyCSharp;
 
 public class CTCloud : MonoBehaviour {
 	public float lifeTime;
+	public float thunderTime;
 	float birthTime;
 	float deltaTime=0.0f;
 	bool notActedYet;
@@ -29,8 +30,8 @@ public class CTCloud : MonoBehaviour {
 		}
 		if(lifeTime<ToolManager.gameTime-birthTime)alive=false;
 		deltaTime += ToolManager.deltaTime;
-		if (deltaTime >= 0.7f && notActedYet) {
-			Instantiate (thunder, this.transform.position + new Vector3 (0, -5.0f, 0.5f), Quaternion.Euler (0, 0, 0));
+		if (deltaTime >= thunderTime && notActedYet) {
+			Instantiate (thunder, this.transform.position + new Vector3 (0, -5.0f, 5.0f), Quaternion.Euler (0, 0, 0));
 			spriteRenderer.sprite = afterSprite;
 			notActedYet=false;
 		}

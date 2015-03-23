@@ -5,6 +5,7 @@ using AssemblyCSharp;
 public class CTGameObject : MonoBehaviour {
 	public GameObject cloud;
 	public GameObject tCloud;
+	public GameObject AdObject;
 	public float nextWindTime=10.0f;
 	public float nextWindRange=1.0f;
 	public float nextWindDelay=5.0f;
@@ -29,6 +30,8 @@ public class CTGameObject : MonoBehaviour {
 		startLogo.SetActive(true);
 		startPopup=true;
 		resultLogo.SetActive(false);
+		AdObject.SendMessage("Load");
+		AdObject.SendMessage("Hide");
 		gameTimer.gameObject.SetActive(false);
 	}
 
@@ -64,12 +67,14 @@ public class CTGameObject : MonoBehaviour {
 				else return;
 			}
 			resultLogo.SetActive(true);
+			AdObject.SendMessage("Show");
 			resultPopup=true;
 			if(intTime%100<10) resultTimer.text=intTime/100+".0"+intTime%100;
 			else resultTimer.text=intTime/100+"."+intTime%100;
 			if(resultPopup){
 				if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return)){
 					resultLogo.SetActive(false);
+					AdObject.SendMessage("Hide");
 					resultPopup=false;
 					startLogo.SetActive(true);
 					gameTimer.gameObject.SetActive(false);
@@ -142,14 +147,14 @@ public class CTGameObject : MonoBehaviour {
 		Vector3 position;
 		float x=Random.Range(-3.5f,3.5f);
 		float y=5;
-		position=new Vector3(x,y,0);
+		position=new Vector3(x,y,-9);
 		Instantiate(cloud,position,Quaternion.Euler(0,0,0));
 	}
 	public void generateTCloud(){
 		Vector3 position;
 		float x=Random.Range(-3.5f,3.5f);
 		float y=5;
-		position=new Vector3(x,y,-1);
+		position=new Vector3(x,y,-10);
 		Instantiate(tCloud,position,Quaternion.Euler(0,0,0));
 	}
 
