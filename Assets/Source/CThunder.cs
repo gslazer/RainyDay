@@ -19,8 +19,8 @@ public class CThunder : MonoBehaviour {
 			return;
 		}
 		if(alive)
-			if(deltaTime>lifeTime)Destroy(gameObject);
-		if(!alive && ToolManager.alive) Destroy(gameObject);
+			if(deltaTime>lifeTime)alive=false;
+		if(!alive) Destroy(gameObject);
 		alive=ToolManager.alive;
 	}
 }
