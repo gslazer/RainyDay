@@ -65,7 +65,9 @@ public class CTGameObject : MonoBehaviour {
 			}
 			resultLogo.SetActive(true);
 			resultPopup=true;
-			resultTimer.text=intTime/100+"."+intTime%100;
+			if(intTime%100<10) resultTimer.text=intTime/100+".0"+intTime%100;
+			else if( (intTime%100)%10==0 ) resultTimer.text=intTime/100+intTime%100+"0";
+			else resultTimer.text=intTime/100+"."+intTime%100;
 			if(resultPopup){
 				if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return)){
 					resultLogo.SetActive(false);
@@ -131,7 +133,10 @@ public class CTGameObject : MonoBehaviour {
 		cloudTime += deltaTime;
 		tCloudTime += deltaTime;
 		intTime=(int) (gameTime*100);
-		gameTimer.text =intTime/100+"."+intTime%100;
+		//gameTimer.text =intTime/100+"."+intTime%100;
+		if(intTime%100<10) gameTimer.text=intTime/100+".0"+intTime%100;
+		else if( (intTime%100)%10==0 ) gameTimer.text=intTime/100+intTime%100+"0";
+		else gameTimer.text=intTime/100+"."+intTime%100;
 		
 	}
 
