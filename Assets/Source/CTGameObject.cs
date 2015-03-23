@@ -66,7 +66,7 @@ public class CTGameObject : MonoBehaviour {
 			resultLogo.SetActive(true);
 			resultPopup=true;
 			if(intTime%100<10) resultTimer.text=intTime/100+".0"+intTime%100;
-			else if( (intTime%100)%10==0 ) resultTimer.text=intTime/100+intTime%100+"0";
+			else if( (intTime%100)%10==0 ) resultTimer.text=intTime/100+"."+intTime%100+"0";
 			else resultTimer.text=intTime/100+"."+intTime%100;
 			if(resultPopup){
 				if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return)){
