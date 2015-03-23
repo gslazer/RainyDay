@@ -29,7 +29,7 @@ public class CTCloud : MonoBehaviour {
 		}
 		if(lifeTime<ToolManager.gameTime-birthTime)alive=false;
 		deltaTime += ToolManager.deltaTime;
-		if (deltaTime >= 0.5f && notActedYet) {
+		if (deltaTime >= 0.7f && notActedYet) {
 			Instantiate (thunder, this.transform.position + new Vector3 (0, -5.0f, 0.5f), Quaternion.Euler (0, 0, 0));
 			spriteRenderer.sprite = afterSprite;
 			notActedYet=false;
