@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class CIGTimerScaler : MonoBehaviour {
+	public bool useOffset;
 	float ratioX;
 	float ratioY;
 	GUIText text;
@@ -13,7 +14,7 @@ public class CIGTimerScaler : MonoBehaviour {
 		ratioX=Screen.width/720.0f;
 		ratioY=Screen.height/1280.0f;
 		text= GetComponent<GUIText>();
-		text.pixelOffset=new Vector2( offsetX*ratioX,offsetY*ratioY);
+		if(useOffset)text.pixelOffset=new Vector2( offsetX*ratioX,offsetY*ratioY);
 		text.fontSize= (int) (fontSize*ratioY)*1;
 	}
 	
