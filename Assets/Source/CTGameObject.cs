@@ -3,7 +3,6 @@ using System.Collections;
 using AssemblyCSharp;
 
 public class CTGameObject : MonoBehaviour {
-	public bool useOffset;
 	public GameObject cloud;
 	public GameObject tCloud;
 	public GameObject AdObject;
@@ -70,8 +69,8 @@ public class CTGameObject : MonoBehaviour {
 			resultLogo.SetActive(true);
 			AdObject.SendMessage("Show");
 			resultPopup=true;
-			if(intTime%100<10) resultTimer.text=intTime/100+".0"+intTime%100+"sec";
-			else resultTimer.text=intTime/100+"."+intTime%100+"sec";
+			if(intTime%100<10) resultTimer.text=intTime/100+".0"+intTime%100;
+			else resultTimer.text=intTime/100+"."+intTime%100;
 			if(resultPopup){
 				if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return)){
 					resultLogo.SetActive(false);
