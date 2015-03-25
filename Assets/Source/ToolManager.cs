@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 
 namespace AssemblyCSharp
 {
@@ -11,6 +12,29 @@ namespace AssemblyCSharp
 			ToolManager.deltaTime=deltaTime;
 		}
 		public static bool alive;
+		public static int highScore;
+		private static StreamWriter sw;
+		private static StreamReader sr;
+		public static void readScore(){
+			if(File.Exists("hs.hs")){
+				sr=new StreamReader("hs.hs");
+				highScore= Convert.ToInt32(sr.ReadLine());
+				sr.Close();
+			}
+			else{
+				File.Create("hs.hs");
+				highScore=0;
+			}
+		}
+		public static void writeScore(int newScore){
+			if(!File.Exists("hs.hs")){
+				File.Create("hs.hs");
+			}
+			sw=new StreamWriter("hs.hs");
+			sw.WriteLine(newScore.ToString());
+			sw.Close();
+			highScore=newScore;
+		}
 	}
 }
 

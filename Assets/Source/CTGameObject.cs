@@ -14,6 +14,7 @@ public class CTGameObject : MonoBehaviour {
 	public GameObject resultLogo;
 	public GUIText gameTimer;
 	public GUIText resultTimer;
+	public GUIText highScoreText;
 	float deltaTime;
 	float cloudTime;
 	public float tCloudTime;
@@ -22,6 +23,7 @@ public class CTGameObject : MonoBehaviour {
 	bool resultPopup;
 	bool startPopup;
 	int intTime;
+	int hightScoreInt;
 	// Use this for initialization
 	void Start () {
 		ToolManager.alive=false;
@@ -29,10 +31,23 @@ public class CTGameObject : MonoBehaviour {
 		gameTime=0;
 		startLogo.SetActive(true);
 		startPopup=true;
+		setHighScoreText();
 		resultLogo.SetActive(false);
 		AdObject.SendMessage("Load");
 		AdObject.SendMessage("Hide");
 		gameTimer.gameObject.SetActive(false);
+	}
+
+	void setHighScoreText(){
+		ToolManager.readScore();
+		hightScoreInt=ToolManager.highScore;
+		highScoreText.text=hightScoreInt/100+"."+hightScoreInt%100;
+	}
+	void registHighScore(){
+		if( intTime>hightScoreInt ){
+			ToolManager.writeScore(intTime);
+			hightScoreInt=intTime;
+		}
 	}
 
 	void setDeltaTime ()
@@ -67,6 +82,7 @@ public class CTGameObject : MonoBehaviour {
 				else return;
 			}
 			resultLogo.SetActive(true);
+			registHighScore();
 			AdObject.SendMessage("Show");
 			resultPopup=true;
 			if(intTime%100<10) resultTimer.text=intTime/100+".0"+intTime%100;
@@ -77,6 +93,7 @@ public class CTGameObject : MonoBehaviour {
 					AdObject.SendMessage("Hide");
 					resultPopup=false;
 					startLogo.SetActive(true);
+					setHighScoreText();
 					gameTimer.gameObject.SetActive(false);
 					startPopup=true;
 				}
