@@ -15,22 +15,29 @@ namespace AssemblyCSharp
 		public static int highScore;
 		private static StreamWriter sw;
 		private static StreamReader sr;
+		private static string filePath;
+
+		public static void setFilePath(string path){
+			filePath=path;
+		}
+
+
 		public static void readScore(){
-			if(File.Exists("hs.hs")){
-				sr=new StreamReader("hs.hs");
+			if(File.Exists(filePath)){
+				sr=new StreamReader(filePath);
 				highScore= Convert.ToInt32(sr.ReadLine());
 				sr.Close();
 			}
 			else{
-				File.Create("hs.hs");
+				File.Create(filePath);
 				highScore=0;
 			}
 		}
 		public static void writeScore(int newScore){
-			if(!File.Exists("hs.hs")){
-				File.Create("hs.hs");
+			if(!File.Exists(filePath)){
+				File.Create(filePath);
 			}
-			sw=new StreamWriter("hs.hs");
+			sw=new StreamWriter(filePath);
 			sw.WriteLine(newScore.ToString());
 			sw.Close();
 			highScore=newScore;

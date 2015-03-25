@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using AssemblyCSharp;
+using System.IO;
 
 public class CTGameObject : MonoBehaviour {
 	public GameObject cloud;
@@ -31,6 +32,7 @@ public class CTGameObject : MonoBehaviour {
 		gameTime=0;
 		startLogo.SetActive(true);
 		startPopup=true;
+		ToolManager.setFilePath(SetFilePath());
 		setHighScoreText();
 		resultLogo.SetActive(false);
 		AdObject.SendMessage("Load");
@@ -49,7 +51,21 @@ public class CTGameObject : MonoBehaviour {
 			hightScoreInt=intTime;
 		}
 	}
-
+	public string SetFilePath(){
+		string filename="hs.hs";
+		if(Application.platform == RuntimePlatform.Android)
+		{
+			string path = Application.persistentDataPath; 
+			path = path.Substring(0, path.LastIndexOf( '/' ) ); 
+			return Path.Combine (path, filename);
+		} 
+		else 
+		{
+			string path = Application.dataPath; 
+			path = path.Substring(0, path.LastIndexOf( '/' ) );
+			return Path.Combine (path, filename);
+		}
+	}
 	void setDeltaTime ()
 	{
 		ToolManager.setDeltaTime(Time.deltaTime);
