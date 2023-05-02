@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using AssemblyCSharp;
 using System.IO;
@@ -13,9 +14,9 @@ public class CTGameObject : MonoBehaviour {
 	public float gameTime;
 	public GameObject startLogo;
 	public GameObject resultLogo;
-	public GUIText gameTimer;
-	public GUIText resultTimer;
-	public GUIText highScoreText;
+	public Text gameTimer;
+	public Text resultTimer;
+	public Text highScoreText;
 	float deltaTime;
 	float cloudTime;
 	public float tCloudTime;
