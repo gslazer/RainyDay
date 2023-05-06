@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using TMPro;
 
 public class CIGTimerScaler : MonoBehaviour {
 	public bool useOffset;
 	float ratioX;
 	float ratioY;
-    Text text;
+    TextMeshPro text;
 	public float offsetX;
 	public float offsetY;
 	public int fontSize;
@@ -14,7 +15,7 @@ public class CIGTimerScaler : MonoBehaviour {
 	void Start () {
 		ratioX=Screen.width/720.0f;
 		ratioY=Screen.height/1280.0f;
-		text= GetComponent<Text>();
+		text= GetComponent<TextMeshPro>();
 		//if(useOffset)text.pi
 				//pixelOffset=new Vector2( offsetX*ratioX,offsetY*ratioY);
 		text.fontSize= (int) (fontSize*ratioY)*1;

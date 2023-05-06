@@ -63,3 +63,5 @@ $RECYCLE.BIN/
 *.msp
 *.meta
 Assets/playmode.unity
+
+.fake

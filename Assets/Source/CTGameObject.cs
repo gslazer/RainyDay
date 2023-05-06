@@ -101,14 +101,14 @@ public class CTGameObject : MonoBehaviour {
 			}
 			resultLogo.SetActive(true);
 			registHighScore();
-			AdObject.SendMessage("Show");
+			//AdObject?.SendMessage("Show");
 			resultPopup=true;
 			if(intTime%100<10) resultTimer.text=intTime/100+".0"+intTime%100;
 			else resultTimer.text=intTime/100+"."+intTime%100;
 			if(resultPopup){
 				if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return)){
 					resultLogo.SetActive(false);
-					AdObject.SendMessage("Hide");
+					//AdObject?.SendMessage("Hide");
 					resultPopup=false;
 					startLogo.SetActive(true);
 					setHighScoreText();
