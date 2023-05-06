@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using AssemblyCSharp;
 using System.IO;
+using TMPro;
 
 public class CTGameObject : MonoBehaviour {
 	public GameObject cloud;
@@ -14,9 +15,9 @@ public class CTGameObject : MonoBehaviour {
 	public float gameTime;
 	public GameObject startLogo;
 	public GameObject resultLogo;
-	public Text gameTimer;
-	public Text resultTimer;
-	public Text highScoreText;
+	public TextMeshPro gameTimer;
+	public TextMeshPro resultTimer;
+	public TextMeshPro highScoreText;
 	float deltaTime;
 	float cloudTime;
 	public float tCloudTime;
