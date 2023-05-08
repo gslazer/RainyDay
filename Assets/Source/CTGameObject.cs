@@ -9,7 +9,7 @@ public class CTGameObject : MonoBehaviour {
 	[SerializeField] Transform cloudParentTransform;
 	public GameObject cloud;
 	public GameObject tCloud;
-	public GameObject AdObject;
+	//public GameObject AdObject;
 	public float nextWindTime=10.0f;
 	public float nextWindRange=1.0f;
 	public float nextWindDelay=5.0f;
@@ -38,8 +38,8 @@ public class CTGameObject : MonoBehaviour {
 		ToolManager.setFilePath(SetFilePath());
 		setHighScoreText();
 		resultLogo.SetActive(false);
-		AdObject.SendMessage("Load");
-		AdObject.SendMessage("Hide");
+		//AdObject.SendMessage("Load");
+		//AdObject.SendMessage("Hide");
 		gameTimer.gameObject.SetActive(false);
 	}
 

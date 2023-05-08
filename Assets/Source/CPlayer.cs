@@ -29,7 +29,7 @@ public class CPlayer : MonoBehaviour {
 		}
 	}
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		if(ToolManager.alive==false){
 			gameObject.GetComponent<Rigidbody2D>().velocity=new Vector2(0,0);
 			return;
