@@ -6,6 +6,7 @@ using System.IO;
 using TMPro;
 
 public class CTGameObject : MonoBehaviour {
+	[SerializeField] Transform cloudParentTransform;
 	public GameObject cloud;
 	public GameObject tCloud;
 	public GameObject AdObject;
@@ -183,14 +184,14 @@ public class CTGameObject : MonoBehaviour {
 		float x=Random.Range(-3.5f,3.5f);
 		float y=5;
 		position=new Vector3(x,y,-9);
-		Instantiate(cloud,position,Quaternion.Euler(0,0,0));
+		var cloudObject = Instantiate(cloud,position,Quaternion.Euler(0,0,0), cloudParentTransform);
 	}
 	public void generateTCloud(){
 		Vector3 position;
 		float x=Random.Range(-3.5f,3.5f);
 		float y=5;
 		position=new Vector3(x,y,-10);
-		Instantiate(tCloud,position,Quaternion.Euler(0,0,0));
+		Instantiate(tCloud,position,Quaternion.Euler(0,0,0), cloudParentTransform);
 	}
 
 	public void InputProcess(){

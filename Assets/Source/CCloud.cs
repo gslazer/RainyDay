@@ -12,9 +12,11 @@ public class CCloud : MonoBehaviour {
 	void Start () {
 		alive=true;
 		birthTime=ToolManager.gameTime;
-		Instantiate(rainDrop,this.transform.position+new Vector3(0,-1,0),Quaternion.Euler(0,180,0));
-		//Destroy (gameObject, 1.0f);  
-	}
+		var rainDropParent = GameObject.Find("RainDropParent");
+		var rainDop = Instantiate(rainDrop,this.transform.position+new Vector3(0,-1,0),Quaternion.Euler(0,180,0));
+		rainDop.transform.SetParent(rainDropParent.transform);
+        //Destroy (gameObject, 1.0f);  
+    }
 	
 	// Update is called once per frame
 	void Update () {
