@@ -19,12 +19,16 @@ public class CPlayer : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D c){
 		if(c.tag=="rain"){
 			Debug.Log ("Get Wet!!");
+			AudioManager.Instance.StopBGM();
+            AudioManager.Instance.PlaySE(SE.dead);
 			ToolManager.alive=false;
 			alive=false;
 		}
 		if(c.tag=="thunder"){
 			Debug.Log("Stunned!!");
-			ToolManager.alive=false;
+            AudioManager.Instance.StopBGM();
+            AudioManager.Instance.PlaySE(SE.dead);
+            ToolManager.alive=false;
 			alive=false;
 		}
 	}

@@ -5,11 +5,12 @@ using AssemblyCSharp;
 using System.IO;
 using TMPro;
 
-public class CTGameObject : MonoBehaviour {
+public class CTGameObject : MonoSingleton <CTGameObject>
+{
 	[SerializeField] Transform cloudParentTransform;
-	public GameObject cloud;
 	public GameObject tCloud;
 	//public GameObject AdObject;
+	public GameObject cloud;
 	public float nextWindTime=10.0f;
 	public float nextWindRange=1.0f;
 	public float nextWindDelay=5.0f;
@@ -41,6 +42,7 @@ public class CTGameObject : MonoBehaviour {
 		//AdObject.SendMessage("Load");
 		//AdObject.SendMessage("Hide");
 		gameTimer.gameObject.SetActive(false);
+		AudioManager.Instance.Initialize();
 	}
 
 	void setHighScoreText(){
@@ -82,7 +84,7 @@ public class CTGameObject : MonoBehaviour {
 			if(startPopup){
 				if( ( Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return))){
 					startLogo.SetActive(false);
-					startPopup=false;
+                    startPopup =false;
 					ToolManager.alive=true;
 					ToolManager.gameTime=0;
 					ToolManager.wind=0;
@@ -95,17 +97,14 @@ public class CTGameObject : MonoBehaviour {
 					nextWindRange=1.0f;
 					nextWindDelay=5.0f;
 					gameTimer.gameObject.SetActive(true);
-					Debug.Log("game start!");
-					return;
+
+                    AudioManager.Instance.PlaySE(SE.click);
+                    AudioManager.Instance.PlayBGM(BGM.normal);
+                    Debug.Log("game start!");
+                    return;
 				}
 				else return;
 			}
-			resultLogo.SetActive(true);
-			registHighScore();
-			//AdObject?.SendMessage("Show");
-			resultPopup=true;
-			if(intTime%100<10) resultTimer.text=intTime/100+".0"+intTime%100;
-			else resultTimer.text=intTime/100+"."+intTime%100;
 			if(resultPopup){
 				if(Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return)){
 					resultLogo.SetActive(false);
@@ -115,9 +114,20 @@ public class CTGameObject : MonoBehaviour {
 					setHighScoreText();
 					gameTimer.gameObject.SetActive(false);
 					startPopup=true;
-				}
+                    AudioManager.Instance.PlaySE(SE.click);
+                    AudioManager.Instance.PlayBGM(BGM.title);
+                }
 				else return;
 			}
+			else
+			{
+                resultLogo.SetActive(true);
+                registHighScore();
+                //AdObject?.SendMessage("Show");
+                resultPopup = true;
+                if (intTime % 100 < 10) resultTimer.text = intTime / 100 + ".0" + intTime % 100;
+                else resultTimer.text = intTime / 100 + "." + intTime % 100;
+            }
 			
 		}
 		
@@ -160,11 +170,14 @@ public class CTGameObject : MonoBehaviour {
 			ToolManager.wind = 1;
 		else
 			ToolManager.wind = -1;
-		
-	}
+		AudioManager.Instance.ChangeBGMspeed(2.0f);
+        //AudioManager.Instance.PlayBGMContinuously(BGM.storming);
+    }
 	private void WindStop(){
 		ToolManager.wind = 0;
-	}
+        AudioManager.Instance.ChangeBGMspeed(1.0f);
+        //AudioManager.Instance.PlayBGMContinuously(BGM.normal);
+    }
 	private void upTimer(){
 		setDeltaTime();
 		deltaTime=ToolManager.deltaTime;
@@ -184,14 +197,14 @@ public class CTGameObject : MonoBehaviour {
 		float x=Random.Range(-3.5f,3.5f);
 		float y=5;
 		position=new Vector3(x,y,-9);
-		var cloudObject = Instantiate(cloud,position,Quaternion.Euler(0,0,0), cloudParentTransform);
+		var cloudObject = GameObject.Instantiate(cloud,position,Quaternion.Euler(0,0,0), cloudParentTransform);
 	}
 	public void generateTCloud(){
 		Vector3 position;
 		float x=Random.Range(-3.5f,3.5f);
 		float y=5;
 		position=new Vector3(x,y,-10);
-		Instantiate(tCloud,position,Quaternion.Euler(0,0,0), cloudParentTransform);
+		GameObject.Instantiate(tCloud,position,Quaternion.Euler(0,0,0), cloudParentTransform);
 	}
 
 	public void InputProcess(){
