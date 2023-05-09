@@ -4,6 +4,7 @@ using System.Collections;
 using AssemblyCSharp;
 using System.IO;
 using TMPro;
+using Unity.VisualScripting;
 
 public class CTGameObject : MonoSingleton <CTGameObject>
 {
@@ -20,7 +21,8 @@ public class CTGameObject : MonoSingleton <CTGameObject>
 	public TextMeshPro gameTimer;
 	public TextMeshPro resultTimer;
 	public TextMeshPro highScoreText;
-	float deltaTime;
+	[SerializeField] TextMeshProUGUI newRecordText;
+    float deltaTime;
 	float cloudTime;
 	public float tCloudTime;
 	float nextTCloudTime=5.0f;
@@ -29,6 +31,7 @@ public class CTGameObject : MonoSingleton <CTGameObject>
 	bool startPopup;
 	int intTime;
 	int hightScoreInt;
+	bool showNewRecordText = false;
 	// Use this for initialization
 	void Start () {
 		ToolManager.alive=false;
@@ -55,8 +58,9 @@ public class CTGameObject : MonoSingleton <CTGameObject>
 		if( intTime>hightScoreInt ){
 			ToolManager.writeScore(intTime);
 			hightScoreInt=intTime;
-		}
-	}
+            showNewRecordText = true;
+        }
+    }
 	public string SetFilePath(){
 		string filename="hs.hs";
 		if(Application.platform == RuntimePlatform.Android)
@@ -129,6 +133,8 @@ public class CTGameObject : MonoSingleton <CTGameObject>
 			{
                 resultLogo.SetActive(true);
                 registHighScore();
+                newRecordText.gameObject.SetActive(showNewRecordText);
+				showNewRecordText = false;
                 //AdObject?.SendMessage("Show");
                 resultPopup = true;
                 if (intTime % 100 < 10) resultTimer.text = intTime / 100 + ".0" + intTime % 100;
