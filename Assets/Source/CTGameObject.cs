@@ -49,7 +49,7 @@ public class CTGameObject : MonoSingleton <CTGameObject>
 	void setHighScoreText(){
 		ToolManager.readScore();
 		hightScoreInt=ToolManager.highScore;
-		highScoreText.text=hightScoreInt/100+"."+hightScoreInt%100;
+		highScoreText.text= $"Best Score : {hightScoreInt / 100}.{hightScoreInt%100}";
 	}
 	void registHighScore(){
 		if( intTime>hightScoreInt ){
