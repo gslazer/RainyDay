@@ -43,7 +43,8 @@ public class CTGameObject : MonoSingleton <CTGameObject>
 		//AdObject.SendMessage("Hide");
 		gameTimer.gameObject.SetActive(false);
 		AudioManager.Instance.Initialize();
-	}
+        AudioManager.Instance.PlayBGM(BGM.title);
+    }
 
 	void setHighScoreText(){
 		ToolManager.readScore();
@@ -80,7 +81,12 @@ public class CTGameObject : MonoSingleton <CTGameObject>
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.Escape))
 			Application.Quit();
-		if(ToolManager.alive==false){
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+			Utility.CaptureScreenshot();
+        }
+        if (ToolManager.alive==false){
 			if(startPopup){
 				if( ( Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return))){
 					startLogo.SetActive(false);
