@@ -9,8 +9,6 @@ using Unity.VisualScripting;
 public class CTGameObject : MonoSingleton <CTGameObject>
 {
 	[SerializeField] Transform cloudParentTransform;
-    [SerializeField] TextMeshProUGUI adCountText;
-    [SerializeField] TextMeshProUGUI foreCountText;
     public GameObject tCloud;
 	//public GameObject AdObject;
 	public GameObject cloud;
@@ -87,8 +85,6 @@ public class CTGameObject : MonoSingleton <CTGameObject>
 	
 	// Update is called once per frame
 	void Update () {
-		adCountText.text = AdMobManager.Instance.adCount.ToString();
-        foreCountText.text = AdMobManager.Instance.adCount.ToString();
         if (Input.GetKeyDown(KeyCode.Escape))
 			Application.Quit();
 
@@ -143,11 +139,12 @@ public class CTGameObject : MonoSingleton <CTGameObject>
 			{
                 resultLogo.SetActive(true);
                 registHighScore();
-				if (showNewRecordText)
-				{
-					newRecordText.gameObject.SetActive(true);
-					AudioManager.Instance.PlaySE(SE.newRecord);
+
+                if (showNewRecordText)
+                {
+                    AudioManager.Instance.PlaySE(SE.newRecord);
                 }
+                newRecordText.gameObject.SetActive(showNewRecordText);
 				showNewRecordText = false;
                 //AdObject?.SendMessage("Show");
                 resultPopup = true;

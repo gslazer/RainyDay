@@ -7,8 +7,10 @@ public partial class AdMobManager
 {
     private class OpenAdObject : IAdMobAdObject
     {
+
 #if UNITY_ANDROID
-        private const string AD_UNIT_ID = "ca-app-pub-3940256099942544/3419835294";
+        private const string AD_UNIT_ID = "ca-app-pub-4375360713005735/8874334654"; // ½ÇÁ¦ ID
+        //private const string AD_UNIT_ID = "ca-app-pub-3940256099942544/3419835294"; // Test ID
 #elif UNITY_IOS
     private const string AD_UNIT_ID = "ca-app-pub-3940256099942544/5662855259";
 #else
