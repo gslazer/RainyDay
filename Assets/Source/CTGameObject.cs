@@ -9,7 +9,9 @@ using Unity.VisualScripting;
 public class CTGameObject : MonoSingleton <CTGameObject>
 {
 	[SerializeField] Transform cloudParentTransform;
-	public GameObject tCloud;
+    [SerializeField] TextMeshProUGUI adCountText;
+    [SerializeField] TextMeshProUGUI foreCountText;
+    public GameObject tCloud;
 	//public GameObject AdObject;
 	public GameObject cloud;
 	public float nextWindTime=10.0f;
@@ -32,8 +34,9 @@ public class CTGameObject : MonoSingleton <CTGameObject>
 	int intTime;
 	int hightScoreInt;
 	bool showNewRecordText = false;
-	// Use this for initialization
-	void Start () {
+	bool showAdOnce = false;
+    // Use this for initialization
+    void Start () {
 		ToolManager.alive=false;
 		gameStartTime=Time.time;
 		gameTime=0;
@@ -47,6 +50,7 @@ public class CTGameObject : MonoSingleton <CTGameObject>
 		gameTimer.gameObject.SetActive(false);
 		AudioManager.Instance.Initialize();
         AudioManager.Instance.PlayBGM(BGM.title);
+		AdMobManager.Instance.InitAdMobSDK();
     }
 
 	void setHighScoreText(){
@@ -83,16 +87,22 @@ public class CTGameObject : MonoSingleton <CTGameObject>
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKeyDown(KeyCode.Escape))
+		adCountText.text = AdMobManager.Instance.adCount.ToString();
+        foreCountText.text = AdMobManager.Instance.adCount.ToString();
+        if (Input.GetKeyDown(KeyCode.Escape))
 			Application.Quit();
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
 			Utility.CaptureScreenshot();
         }
+
         if (ToolManager.alive==false){
-			if(startPopup){
-				if( ( Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return))){
+			if(startPopup)
+            {
+                if (!showAdOnce)
+                    showAdOnce = AdMobManager.Instance.ShowAppOpenAd();
+                if ( ( Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Return))){
 					startLogo.SetActive(false);
                     startPopup =false;
 					ToolManager.alive=true;
