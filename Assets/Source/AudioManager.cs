@@ -7,7 +7,8 @@ using System.Linq;
 public enum SE
 {
     dead,
-    click
+    click,
+    newRecord
 }
 public enum BGM
 {

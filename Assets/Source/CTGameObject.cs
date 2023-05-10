@@ -143,7 +143,11 @@ public class CTGameObject : MonoSingleton <CTGameObject>
 			{
                 resultLogo.SetActive(true);
                 registHighScore();
-                newRecordText.gameObject.SetActive(showNewRecordText);
+				if (showNewRecordText)
+				{
+					newRecordText.gameObject.SetActive(true);
+					AudioManager.Instance.PlaySE(SE.newRecord);
+                }
 				showNewRecordText = false;
                 //AdObject?.SendMessage("Show");
                 resultPopup = true;
