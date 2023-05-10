@@ -73,18 +73,30 @@ public partial class AdMobManager : MonoSingleton<AdMobManager>
         return appOpenAd.ShowAdIfAvailable();
     }
 
-    private void Awake()
+    //230511 APK에서 AppStateEventNotifier.AppStateChanged 가 정상동작하지 않는 것을 확인.
+    //아래 주석을 대체한다.
+    void OnApplicationPause(bool pause)
+    {
+        if (!pause)
+            OnAppStateChanged(AppState.Foreground);
+    }
+
+
+    //230511 gz : APK에서 AppStateEventNotifier.AppStateChanged 이벤트가 정상동작하지 않는 것을 확인.
+    //AppStateEventNotifier.AppStateChanged에 의존하는 이하 함수들을 주석처리한다.
+    /*private void Awake()
     {
         // Use the AppStateEventNotifier to listen to application open/close events.
         // This is used to launch the loaded ad when we open the app.
         AppStateEventNotifier.AppStateChanged += OnAppStateChanged;
     }
-
     private void OnDestroy()
     {
         // Always unlisten to events when complete.
         AppStateEventNotifier.AppStateChanged -= OnAppStateChanged;
     }
+    */
+
     private void OnAppStateChanged(AppState state)
     {
         Debug.Log("App State changed to : " + state);
